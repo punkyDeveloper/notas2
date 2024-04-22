@@ -44,12 +44,13 @@ export async function  POST(req, res) {
       password,
     })
     await user.save()
-    
-    return res.status(200).json({ redirect: '/' });
+    // return res.status(200).json({ redirect: '/' });
   } catch (error) {
     console.log(error)
-  
+    
   }
+  revalidatePath('/')
+  redirect(`/`)
 }
 
 
