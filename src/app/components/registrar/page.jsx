@@ -12,8 +12,13 @@ function Signup() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    // validaciones
     if (!fullName || !email || !password) {
       setError("Por favor, complete todos los campos.");
+      return;
+    }
+    if (password.length < 6) {
+      setError("la contraseña tiene que ser mayor a 6 dijitos.");
       return;
     }
 
@@ -21,21 +26,33 @@ function Signup() {
     console.log("correo", email)
     console.log("contraseña", password)
 
+    // Envia los datos
+    try {
+      const response = await fetch("/api/registrar", { 
+        method: "POST",
+        headers: {
+          "Content-type": "application/json",
+        },
+        body: JSON.stringify({
+          fullName,
+          email,
+          password,
+        }),
+      });
 
-    await fetch("/api/registrar", { 
-      method: "POST",
-      headers: {
-        "Content-type": "application/json",
-      },
-      body: JSON.stringify({
-        fullName,
-        email,
-        password,
-      }),
-    });
+      // valida que si devuelva datos 
 
-
-
+      if (response.ok) {
+        console.log("mi respuesta",response.ok)
+        // Redirigir al usuario a la página de inicio si la respuesta es exitosa
+        window.location.href = '/';
+      } else {
+        throw new Error('Error al guardar los datos.');
+      }
+    } catch (error) {
+      console.error(error);
+      setError('Error al guardar los datos. Por favor, inténtalo de nuevo.');
+    }
 
   };
 
@@ -86,9 +103,12 @@ function Signup() {
             <p>{error}</p>
           </div>
         )}
-        <button className="bg-blue-500 text-white px-4 py-2 block w-full mt-4">
+        <button type="sudmit" className="bg-blue-500 text-white px-4 py-2 block w-full mt-4">
           Registrar
         </button>
+        <a href="/" className="font-semibold leading-6 text-black hover:text-indigo-500">
+            Login
+          </a>
         <br />
 
       </form>

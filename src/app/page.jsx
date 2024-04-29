@@ -1,6 +1,5 @@
 
-import Head from 'next/head'
-
+'use client'
 export default function Home() {
                    
   return (
@@ -70,7 +69,7 @@ export default function Home() {
 
         <p className="mt-10 text-center text-sm text-gray-500">
           No tienes cuenta?{' '}
-          <a href="./components/registrar" className="font-semibold leading-6 text-black hover:text-indigo-500">
+          <a href="/components/registrar" className="font-semibold leading-6 text-black hover:text-indigo-500">
             Crear cuenta
           </a>
         </p>
