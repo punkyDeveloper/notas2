@@ -1,6 +1,7 @@
 
 "use client";
 import { useState } from "react";
+import Button from './components/nav'
 
 export default function Home() {
   const [email, setEmail] = useState('');
@@ -33,6 +34,9 @@ export default function Home() {
   return (
   
     <>
+    <div>
+      <Button>Hola, soy un botón</Button>
+    </div>
     <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
       <div className="sm:mx-auto sm:w-full sm:max-w-sm">
         <img

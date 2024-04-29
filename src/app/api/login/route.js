@@ -1,25 +1,28 @@
 import User from "../../../models/user";
-import { connectDB } from "../../../libs/conectio"; // Corregido el nombre del archivo de conexión
+import { connectDB } from "../../../libs/conectio"; 
 import { NextResponse } from "next/server";
 
-export async function GET(req, res) {
+export async function POST(req, res) {
+  const { email, password } = req.json();
+
+  console.log("Correo:", email);
+  console.log("Contraseña:", password);
   try {
-    // Obtener los datos del cuerpo de la solicitud
-    const { email, password } = req.body; // Cambiado de req.json() a req.body
-
-    console.log("Correo:", email);
-    console.log("Contraseña:", password);
-
     // Conectar a la base de datos
     await connectDB();
 
-    // Buscar usuarios en la base de datos
-    const usuarios = await User.find();
+    // Buscar usuario en la base de datos
+    const usuario = await User.find();
 
-    console.log("Usuarios encontrados:", usuarios);
-
-    // Enviar respuesta al cliente con los usuarios encontrados
-    return NextResponse.json(usuarios);
+    if (usuario) {
+      console.log("Usuario encontrado:", usuario);
+      // Enviar respuesta al cliente con el usuario encontrado
+      return NextResponse.json(usuario);
+    } else {
+      console.log("Usuario no encontrado");
+      // Enviar una respuesta al cliente si el usuario no se encuentra
+      return NextResponse.error("Usuario no encontrado", { status: 404 });
+    }
   } catch (error) {
     console.error("Error:", error);
     // Enviar una respuesta de error al cliente si algo salió mal
