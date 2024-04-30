@@ -28,7 +28,8 @@ function Signup() {
 
     // Envia los datos
     try {
-      const response = await fetch("/api/registrar", { 
+      const url = "/api/registrar"
+      const response = await fetch(url, { 
         method: "POST",
         headers: {
           "Content-type": "application/json",

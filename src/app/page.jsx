@@ -1,7 +1,7 @@
 
 "use client";
 import { useState } from "react";
-import Button from './components/nav'
+
 
 export default function Home() {
   const [email, setEmail] = useState('');
@@ -15,28 +15,33 @@ export default function Home() {
       return;
     }
 
-    console.log("correo", email)
-    console.log("contraseña", password)
+    console.log("correo", email);
+    console.log("contraseña", password);
 
-    const ruta = "/api/login"
+    try {
+      const response = await fetch("/api/login", {
+        method: "POST",
+        headers: {
+          "Content-type": "application/json",
+        },
+        body: JSON.stringify({ email, password }),
+      });
 
-    await fetch("/api/login"),{
-      method : "GET",
-      headers: {
-        "Content-type": "application/json",
-      },
-      body: JSON.stringify({
-        email,
-        password
-      })
+      if (response.ok) {
+        const data = await response.json();
+        console.log("Usuario encontrado:", data);
+        // Aquí puedes hacer lo que quieras con los datos del usuario
+      } else {
+        throw new Error("Usuario no encontrado");
+      }
+    } catch (error) {
+      console.error(error);
+      setError("Error al buscar el usuario.");
     }
-  }
+  };
   return (
   
     <>
-    <div>
-      <Button>Hola, soy un botón</Button>
-    </div>
     <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
       <div className="sm:mx-auto sm:w-full sm:max-w-sm">
         <img
@@ -94,14 +99,17 @@ export default function Home() {
             </div>
             
           </div>
-        {/* Conditionally render error message */}
-        {error && (
-          <div className="bg-orange-100 border-l-4 border-orange-500 text-orange-700 p-4" role="alert">
-            <p className="font-bold">¡Atención!</p>
-            <p>{error}</p>
-          </div>
-        )}
+
+                                {/* Inputs de correo y contraseña */}
+            {/* Manejo de errores */}
+            {error && (
+              <div className="bg-orange-100 border-l-4 border-orange-500 text-orange-700 p-4" role="alert">
+                <p className="font-bold">¡Atención!</p>
+                <p>{error}</p>
+              </div>
+            )}
           <div>
+
             <button
               // type="submit"
               className="flex w-full justify-center rounded-md bg-black px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-slate-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
