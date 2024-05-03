@@ -1,9 +1,8 @@
 import React from "react";
-import { Inter } from "next/font/google";
+
 import "./globals.css";
 
-// Configuración de la fuente Inter
-const inter = Inter({ subsets: ["latin"] });
+
 
 // Metadatos del sitio
 export const metadata = {
