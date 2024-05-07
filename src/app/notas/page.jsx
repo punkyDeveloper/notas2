@@ -4,7 +4,7 @@ import Buttons from '../components/modal/boton';
 import Nav from '../components/nav/nav';
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
-import CardGroup from 'react-bootstrap/CardGroup';
+
 
 export default function Notas() {
   const [notas, setNotas] = useState([]);
@@ -49,9 +49,10 @@ export default function Notas() {
 
 
             {notas.map(nota => (
-      <CardGroup style={{ width: '18rem' }} >
-               <Card key={nota._id}  style={{ width: '18rem' }}>
-                      <Card.Header as="h5">{nota.nombre}</Card.Header>
+
+              //  <Card  style={{ width: '18rem' }}>
+               <Card style={{ width: '18rem' }}>
+                      <Card.Header >{nota.nombre}</Card.Header>
                       <Card.Body>
                         <Card.Title>Special title treatment</Card.Title>
                         <Card.Text>
@@ -60,18 +61,8 @@ export default function Notas() {
                         <Button variant="danger">Go somewhere</Button>
                       </Card.Body>
                       </Card>
-    </CardGroup>
 
-            //    <Card  key={nota._id} style={{ width: '18rem' }}>
 
-            //    <Card.Body>
-            //      <Card.Title>{nota.nombre}</Card.Title>
-            //      <Card.Text>
-            //      {nota.nota}
-            //      </Card.Text>
-            //      <Button variant="danger">Eliminar</Button>
-            //    </Card.Body>
-            //  </Card>
             ))}
 
         </div>
