@@ -1,5 +1,5 @@
 import React from "react";
-
+import scri from "./scripts"
 import "./globals.css";
 
 
@@ -21,7 +21,7 @@ export default function RootLayout({ children }) {
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
         crossOrigin="anonymous"
       ></link>
-
+      <script/>
       {/* Cuerpo de la página */}
       <body>{children}</body>
       {/* Script de Bootstrap */}

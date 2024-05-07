@@ -1,13 +1,24 @@
 "use client";
 import { useState } from "react";
+import Button from 'react-bootstrap/Button';
+import Modal from 'react-bootstrap/Modal';
 
 function Example() {
+  const [show, setShow] = useState(false);
+
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+
+
   const [nombre, setNombre] = useState('');
   const [nota, setNota] = useState('');
   const [error, setError] = useState(null);
 
+
   const enviarNota = async (e) =>{
     e.preventDefault();
+    console.log("nombre",nombre)
+    console.log("nombre",nota)
     // validaciones
     if (!nombre || !nota) {
       setError("Comple los campos de la nota.");
@@ -36,23 +47,21 @@ const userId = 123
   
   return (
     <>
-     
+      <Button className="m-3" variant="primary" onClick={handleShow}>
+        Crear nota
+      </Button>
 
-  <button type="button" className="m-3 btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-    Crear una nota
-</button>
-
-<div className="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabIndex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-<form onSubmit={enviarNota}>
-  <div className="modal-dialog">
-    <div className="modal-content">
-      <div className="modal-header">
-        <h5 className="modal-title" id="staticBackdropLabel">Crear una nota</h5>
-        <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-
-
-        <div className="modal-body">
+      <Modal
+        show={show}
+        onHide={handleClose}
+        backdrop="static"
+        keyboard={false}
+      >
+        <form onSubmit={enviarNota}>
+        <Modal.Header closeButton>
+          <Modal.Title>Crea tu nota</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
         <label className="text-zinc-800">Titulo:</label>
           <input
             onChange={(e) => setNombre(e.target.value)}
@@ -72,7 +81,7 @@ const userId = 123
             name="text"
             id="text"
           />
-        </div>
+
         {/* Conditionally render error message */}
         {error && (
           <div className="bg-orange-100 border-l-4 border-orange-500 text-orange-700 p-4" role="alert">
@@ -80,15 +89,15 @@ const userId = 123
             <p>{error}</p>
           </div>
         )}
-
-      <div className="modal-footer">
-        <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-        <button type="submit" className="btn btn-primary">Crear Nota</button>
-      </div>
-    </div>
-  </div>
-</form>
-</div>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleClose}>
+            Cerrar
+          </Button>
+          <Button type="submit" variant="primary">Guardar</Button>
+        </Modal.Footer>
+        </form>
+      </Modal>
     </>
   );
 }
