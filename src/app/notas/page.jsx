@@ -1,19 +1,27 @@
 "use client";
 import React, { useState, useEffect } from 'react';
-import Button from '../components/modal/boton';
+import Buttons from '../components/modal/boton';
 import Nav from '../components/nav/nav';
+import Button from 'react-bootstrap/Button';
+import Card from 'react-bootstrap/Card';
+import CardGroup from 'react-bootstrap/CardGroup';
 
 export default function Notas() {
-
   const [notas, setNotas] = useState([]);
-
+  const [error, setError] = useState(null);
   const fetchData = async () => {
     try {
       const response = await fetch('http://localhost:3000/api/notas');
       const data = await response.json();
-      setNotas(data);
+      console.log(data)
+      if (Array.isArray(data) && data.length > 0) {
+        setNotas(data);
+      } else {
+        setError('No se encontraron notas.');
+      }
     } catch (error) {
       console.error('Error al obtener las notas:', error);
+      setError('Error al obtener las notas.');
     }
   };
 
@@ -26,29 +34,48 @@ export default function Notas() {
     <div>
       <Nav /> 
       <div>
-        <Button/>
+        <Buttons/>
       </div>
       <div className='m-3'>
-        <h1>Nota</h1>
+        <h1 >Nota</h1>
         <div>
-          <div className="row text-center">
-            {notas.map(nota => (
-              <div key={nota._id} className="m-1 col-sm-2">
-                <div className="card">
-                  <div className="card-body">
-                    <h5 className="card-title">{nota.nombre}</h5>
-                    <p className="card-text">{nota.nota}</p>
-                    <button className="btn btn-danger">Eliminar</button>
-                  </div>
-                </div>
-              </div>
-            ))}
+                  {/* Conditionally render error message */}
+        {error && (
+          <div className="bg-orange-100 border-l-4 border-orange-500 text-orange-700 p-4" role="alert">
+            <p className="font-bold">¡Atención!</p>
+            <p>{error}</p>
           </div>
+        )}
+
+
+            {notas.map(nota => (
+      <CardGroup style={{ width: '18rem' }} >
+               <Card key={nota._id}  style={{ width: '18rem' }}>
+                      <Card.Header as="h5">{nota.nombre}</Card.Header>
+                      <Card.Body>
+                        <Card.Title>Special title treatment</Card.Title>
+                        <Card.Text>
+                          With supporting text below as a natural lead-in to additional content.
+                        </Card.Text>
+                        <Button variant="danger">Go somewhere</Button>
+                      </Card.Body>
+                      </Card>
+    </CardGroup>
+
+            //    <Card  key={nota._id} style={{ width: '18rem' }}>
+
+            //    <Card.Body>
+            //      <Card.Title>{nota.nombre}</Card.Title>
+            //      <Card.Text>
+            //      {nota.nota}
+            //      </Card.Text>
+            //      <Button variant="danger">Eliminar</Button>
+            //    </Card.Body>
+            //  </Card>
+            ))}
+
         </div>
       </div>
     </div>
   );
 }
-
-
-

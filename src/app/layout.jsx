@@ -1,8 +1,6 @@
 import React from "react";
-import scri from "./scripts"
+import "bootstrap/dist/css/bootstrap.min.css";
 import "./globals.css";
-
-
 
 // Metadatos del sitio
 export const metadata = {
@@ -14,18 +12,7 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="es">
-      {/* Enlace al archivo CSS de Bootstrap */}
-      <link
-        href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
-        rel="stylesheet"
-        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
-        crossOrigin="anonymous"
-      ></link>
-      <script/>
-      {/* Cuerpo de la página */}
       <body>{children}</body>
-      {/* Script de Bootstrap */}
     </html>
   );
 }
-
