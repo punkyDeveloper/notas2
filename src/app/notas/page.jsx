@@ -51,14 +51,13 @@ export default function Notas() {
             {notas.map(nota => (
 
               //  <Card  style={{ width: '18rem' }}>
-               <Card style={{ width: '18rem' }}>
+              <Card style={{ width: '18rem' }}>
                       <Card.Header >{nota.nombre}</Card.Header>
                       <Card.Body>
-                        <Card.Title>Special title treatment</Card.Title>
                         <Card.Text>
-                          With supporting text below as a natural lead-in to additional content.
+                        {nota.nota}
                         </Card.Text>
-                        <Button variant="danger">Go somewhere</Button>
+                        <Button variant="danger">Eliminar</Button>
                       </Card.Body>
                       </Card>
 
