@@ -4,8 +4,14 @@ import { NextResponse } from "next/server";
 
 export async function  POST(req, res) {
 
-  const { nombre, nota } = await req.json()
+  const { nombre, nota, userId } = await req.json()
 
+  if (!userId) {
+    NextResponse.json(
+      { message: 'no llego el id' },
+      { status: 400 }
+    )
+  }
   if (!nombre) {
     return (
       NextResponse.json(
@@ -28,12 +34,17 @@ export async function  POST(req, res) {
 
     const agenda = new Notas({ 
       nombre,
-      nota
+      nota,
+      
+      
+
+
+      
     })
     const datos = await agenda.save()
     console.log(datos)
-    const buscarid = await Notas.find({_id:datos._id} )
-    console.log(buscarid)
+    // const buscarid = await Notas.find({userId:datos.userId} )
+    // console.log(buscarid)
     return (
       NextResponse.json(
         { message: 'Nota creada' },
@@ -73,12 +84,12 @@ export async function  GET(req, res) {
 export async function DELETE(req, res) {
   await connectDB();
   try {
-    const id = await req.query && req.query._id
+    const id = await req.query && req.query.userId
     console.log(id)
     return (
       NextResponse.json(id)
     )
-    // const notas = await Notas.find({_id});
+    // const notas = await Notas.find({userId});
     //   console.log("mi id1 ")
     //   console.log("mi id "+notas)
 

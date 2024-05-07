@@ -26,7 +26,7 @@ export default function Notas() {
     <div>
       <Nav /> 
       <div>
-        <Button>hola</Button>
+        <Button/>
       </div>
       <div className='m-3'>
         <h1>Nota</h1>

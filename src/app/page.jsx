@@ -117,7 +117,7 @@ export default function Home() {
 
         <p className="mt-10 text-center text-sm text-gray-500">
           No tienes cuenta?{' '}
-          <a href="/components/registrar" className="font-semibold leading-6 text-black hover:text-indigo-500">
+          <a href="border-4 border-b-black px-4 py-2 block mb-2 w-full/registrar" className="font-semibold leading-6 text-black hover:text-indigo-500">
             Crear cuenta
           </a>
         </p>

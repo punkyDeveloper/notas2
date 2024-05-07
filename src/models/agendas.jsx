@@ -9,6 +9,11 @@ const agendaSchema = new Schema({
   nota: {
       type: String,
 
+  },
+  userId:{
+    type: String,
+    //   type: Schema.Types.ObjectId,
+    //   ref: 'user'
   }
     });
 

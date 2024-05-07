@@ -71,7 +71,7 @@ function Signup() {
           value={fullName}
           type="text"
           placeholder="Santiago"
-          className="bg-zinc-800 px-4 py-2 block mb-2 w-full"
+          className="border-4 border-b-black px-4 py-2 block mb-2 w-full"
           name="fullName"
           id="fullName"
         />
@@ -82,7 +82,7 @@ function Signup() {
           value={email}
           type="email"
           placeholder="santi@gmail.com"
-          className="bg-zinc-800 px-4 py-2 block mb-2 w-full"
+          className="border-4 border-b-black px-4 py-2 block mb-2 w-full"
           name="email"
           id="email"
         />
@@ -93,7 +93,7 @@ function Signup() {
           value={password}
           type="password"
           placeholder="*****************"
-          className="bg-zinc-800 px-4 py-2 block mb-2 w-full"
+          className="border-4 border-b-black px-4 py-2 block mb-2 w-full"
           name="password"
           id="password"
         />
