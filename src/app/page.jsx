@@ -107,7 +107,7 @@ export default function Home() {
           <div>
 
             <button
-              // type="submit"
+              type="submit"
               className="flex w-full justify-center rounded-md bg-black px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-slate-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
             >
               Ingresar
@@ -117,7 +117,7 @@ export default function Home() {
 
         <p className="mt-10 text-center text-sm text-gray-500">
           No tienes cuenta?{' '}
-          <a href="border-4 border-b-black px-4 py-2 block mb-2 w-full/registrar" className="font-semibold leading-6 text-black hover:text-indigo-500">
+          <a href="/registrar" className="font-semibold leading-6 text-black hover:text-indigo-500">
             Crear cuenta
           </a>
         </p>
