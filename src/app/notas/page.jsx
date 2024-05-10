@@ -10,7 +10,8 @@ export default function Notas() {
   const [error, setError] = useState(null);
   const fetchData = async () => {
     try {
-      const response = await fetch('http://localhost:3000/api/notas');
+      const url ='/api/notas'
+      const response = await fetch(url);
       const data = await response.json();
       console.log(data)
       if (Array.isArray(data) && data.length > 0) {
