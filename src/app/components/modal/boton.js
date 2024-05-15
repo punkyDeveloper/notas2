@@ -6,7 +6,6 @@ import Modal from 'react-bootstrap/Modal';
 function Example() {
   // boostrap
   const [show, setShow] = useState(false);
-
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
@@ -14,6 +13,7 @@ function Example() {
   const [nombre, setNombre] = useState('');
   const [nota, setNota] = useState('');
   const [error, setError] = useState(null);
+  const [exit, setExit] = useState(null);
 
   const enviarNota = async (e) =>{
     e.preventDefault();
@@ -31,6 +31,10 @@ function Example() {
         },
         body: JSON.stringify({ nombre, nota, userId }), // Pasar el ID del usuario al servidor
       });
+      if (nombre && nota) {
+        setExit("Se creo con exito su nota (Recarga la pagina).");
+        return;
+      }
       // Limpiar los campos después de enviar la nota
       setNombre('');
       setNota('');
@@ -83,7 +87,13 @@ function Example() {
                 {error && (
                   <div className="bg-orange-100 border-l-4 border-orange-500 text-orange-700 p-4" role="alert">
                     <p className="font-bold">¡Atención!</p>
-                    <p>{error}</p>
+                    <p>{error || exit}</p>
+                  </div>
+                )}
+                {exit && (
+                  <div className="bg-blue-100 border-l-4 border-blue-500 text-blue-700 p-4" role="alert">
+                    <p className="font-bold"></p>
+                    <p>{exit}</p>
                   </div>
                 )}
               </Modal.Body>

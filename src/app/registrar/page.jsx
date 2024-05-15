@@ -22,10 +22,6 @@ function Signup() {
       return;
     }
 
-    console.log("nombre", fullName)
-    console.log("correo", email)
-    console.log("contraseña", password)
-
     // Envia los datos
     try {
       const url = "/api/registrar"

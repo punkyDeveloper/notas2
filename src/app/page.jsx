@@ -15,9 +15,6 @@ export default function Home() {
       return;
     }
 
-    console.log("correo", email);
-    console.log("contraseña", password);
-
     try {
       const response = await fetch("/api/login", {
         method: "POST",
@@ -96,7 +93,7 @@ export default function Home() {
             
           </div>
 
-                                {/* Inputs de correo y contraseña */}
+            {/* Inputs de correo y contraseña */}
             {/* Manejo de errores */}
             {error && (
               <div className="bg-orange-100 border-l-4 border-orange-500 text-orange-700 p-4" role="alert">
