@@ -13,10 +13,6 @@ export async function POST(req, res) {
   try {
     // Conectar a la base de datos
     await connectDB();
-    // Access LOGIN environment variable securely
-    const loginUrl = process.env.REACT_APP_ruta; // Assuming your variable is named LOGIN
-
-    console.log("Login URL:", loginUrl); // Use loginUrl for login logic if needed
 
     // Buscar usuario en la base de datos
     const usuario = await User.findOne({ email, password });
@@ -27,8 +23,7 @@ export async function POST(req, res) {
       //
       console.log(cookies().get("access-token"));
       const galleta =cookies().set("token", usuario._id);
-
-      //
+      // Si se crea la galleta puede ingresar 
       if (galleta) {
         console.log("hola")
         return NextResponse.redirect(process.env.REACT_APP_ruta);
