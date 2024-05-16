@@ -40,11 +40,11 @@ function Signup() {
       // valida que si devuelva datos 
 
       if (response.ok) {
-        console.log("mi respuesta",response.ok)
-        // Redirigir al usuario a la página de inicio si la respuesta es exitosa
+        const data = await response.json();
+        console.log("Respuesta del servidor:", data);
         window.location.href = '/';
       } else {
-        setError('Error al guardar los datos.');
+        setError('El correo ya se encuentra en uso.');
       }
     } catch (error) {
       console.error(error);

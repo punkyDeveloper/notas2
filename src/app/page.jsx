@@ -1,6 +1,6 @@
 "use client";
 import { useState } from "react";
-
+// import {} from ""
 export default function Home() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -35,13 +35,13 @@ export default function Home() {
       });
 
       if (response.ok) {
-        // console.log("mi respuesta",response.ok)
+        console.log("mi respuesta",response.ok)
         window.location.href = '/notas';
         const data = await response.json();
         console.log("Usuario encontrado:", data);
         // Aquí puedes hacer lo que quieras con los datos del usuario
       } else {
-        setError("Usuario no encontrado");
+        setError("Correo o contraseña incorrecto");
       }
     } catch (error) {
       console.error(error);

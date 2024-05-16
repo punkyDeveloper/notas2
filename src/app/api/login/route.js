@@ -25,8 +25,8 @@ export async function POST(req, res) {
       const galleta =cookies().set("token", usuario._id);
       // Si se crea la galleta puede ingresar 
       if (galleta) {
-        console.log("hola")
-        return NextResponse.redirect(process.env.REACT_APP_ruta);
+        console.log(process.env.REACT_APP_ruta)
+        return NextResponse.redirect('http://localhost:3000/');
       }
     } else {
       console.log("Usuario no encontrado");
