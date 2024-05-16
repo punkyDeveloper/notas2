@@ -44,7 +44,7 @@ function Signup() {
         // Redirigir al usuario a la página de inicio si la respuesta es exitosa
         window.location.href = '/';
       } else {
-        throw new Error('Error al guardar los datos.');
+        setError('Error al guardar los datos.');
       }
     } catch (error) {
       console.error(error);

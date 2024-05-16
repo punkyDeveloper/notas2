@@ -2,7 +2,7 @@
 import User from "../../../models/user";
 import { connectDB } from "../../../libs/conectio"; 
 import { NextResponse } from "next/server";
-import { cookie } from 'next/headers';
+import { cookies } from "next/headers";
 
 export async function POST(req, res) {
   const { email, password } = await req.json();
@@ -13,6 +13,10 @@ export async function POST(req, res) {
   try {
     // Conectar a la base de datos
     await connectDB();
+    // Access LOGIN environment variable securely
+    const loginUrl = process.env.REACT_APP_ruta; // Assuming your variable is named LOGIN
+
+    console.log("Login URL:", loginUrl); // Use loginUrl for login logic if needed
 
     // Buscar usuario en la base de datos
     const usuario = await User.findOne({ email, password });
@@ -21,16 +25,14 @@ export async function POST(req, res) {
       console.log("Usuario encontrado:", usuario);
 
       //
-      const cookies = cookie();
-      cookies.set('user', 'johndoe');
+      console.log(cookies().get("access-token"));
+      const galleta =cookies().set("token", usuario._id);
+
       //
-
-      // Almacenar los datos del usuario en sessionStorage
-      // req.session.set('usuario', usuario);
-      // await req.session.save();
-
-      // Devolver respuesta al cliente con el usuario encontrado
-      return NextResponse.json(usuario );
+      if (galleta) {
+        console.log("hola")
+        return NextResponse.redirect(process.env.REACT_APP_ruta);
+      }
     } else {
       console.log("Usuario no encontrado");
       // Enviar una respuesta al cliente si el usuario no se encuentra

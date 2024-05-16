@@ -2,6 +2,7 @@ import User from "../../../models/user";
 import { connectDB } from "../../../libs/conectio";
 import { NextResponse } from "next/server";
 
+
 export async function  POST(req, res) {
   
   const { fullName, email, password } = await req.json();
@@ -18,7 +19,7 @@ export async function  POST(req, res) {
     await user.save();
 
     // Devuelve una respuesta de éxito
-    return  NextResponse.redirect('http://localhost:3000/');
+    return  NextResponse.redirect(process.env.REACT_APP_ruta);
   } catch (error) {
     console.error(error);
     // Devuelve una respuesta de error

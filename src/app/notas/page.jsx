@@ -14,7 +14,7 @@ export default function Notas() {
       const url ='/api/notas'
       const response = await fetch(url);
       const data = await response.json();
-      console.log(data)
+
       if (Array.isArray(data) && data.length > 0) {
         setNotas(data);
       } else {
@@ -53,7 +53,7 @@ export default function Notas() {
               <div key={nota._id} className="m-1 col-sm-2">
                 <div className="card">
                   <div className="card-body">  
-                    <div class="card-header">
+                    <div className="card-header">
                       {nota.nombre}
                     </div>
                     
@@ -65,7 +65,7 @@ export default function Notas() {
                 </div>
               </div>
             ))}
-          </div> 
+          </div>  
 
         </div>
       </div>

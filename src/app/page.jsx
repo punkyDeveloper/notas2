@@ -1,22 +1,33 @@
-
 "use client";
 import { useState } from "react";
-
 
 export default function Home() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState(null);
+
   const ingresar = async (e) => {
     e.preventDefault();
-
+    
+    if (!email) {
+      setError("Por favor, complete el campos de correo.");
+      return;
+    }    
+    if (!password) {
+      setError("Por favor, complete el campos de contraseña.");
+      return;
+    }
     if (!email || !password) {
       setError("Por favor, complete todos los campos.");
       return;
     }
-
+    
     try {
-      const response = await fetch("/api/login", {
+      
+      const url = "/api/login"
+
+      console.log(url)
+      const response = await fetch(url, {
         method: "POST",
         headers: {
           "Content-type": "application/json",
@@ -25,20 +36,23 @@ export default function Home() {
       });
 
       if (response.ok) {
+        // console.log("mi respuesta",response.ok)
+        window.location.href = '/notas';
         const data = await response.json();
         console.log("Usuario encontrado:", data);
         // Aquí puedes hacer lo que quieras con los datos del usuario
       } else {
-        throw new Error("Usuario no encontrado");
+        setError("Usuario no encontrado");
       }
     } catch (error) {
       console.error(error);
       setError("Error al buscar el usuario.");
     }
   };
+
   return (
-  
     <>
+
     <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
       <div className="sm:mx-auto sm:w-full sm:max-w-sm">
 
