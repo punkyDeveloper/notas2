@@ -23,28 +23,33 @@ export default function Home() {
     }
     
     try {
-      
-      const url = "/api/login"
-
+      const url = "/api/login";
+  
       const response = await fetch(url, {
         method: "POST",
         headers: {
-          "Content-type": "application/json",
+          "Content-Type": "application/json",
         },
         body: JSON.stringify({ email, password }),
       });
-
+      console.log(response)
+      console.log(response.ok)
       if (response.ok) {
-        console.log("mi respuesta",response.ok)
-        window.location.href = '/notas';
         const data = await response.json();
         console.log("Usuario encontrado:", data);
-        // Aquí puedes hacer lo que quieras con los datos del usuario
+        if (data.success) {
+          // Redirigir al usuario a la página de notas
+          window.location.href = 'http://localhost:3000/notas';
+        } else {
+          setError("No se pudo iniciar sesión, intenta de nuevo.");
+        }
       } else {
+        const errorData = await response.json();
+        console.error("Error del servidor:", errorData.error);
         setError("Correo o contraseña incorrecto");
       }
     } catch (error) {
-      console.error(error);
+      console.error("Error al buscar el usuario:", error);
       setError("Error al buscar el usuario.");
     }
   };

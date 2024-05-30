@@ -7,9 +7,6 @@ import { cookies } from "next/headers";
 export async function POST(req, res) {
   const { email, password } = await req.json();
 
-  console.log("Correo:", email);
-  console.log("Contraseña:", password);
-
   try {
     // Conectar a la base de datos
     await connectDB();
@@ -21,12 +18,13 @@ export async function POST(req, res) {
       console.log("Usuario encontrado:", usuario);
 
       //
-      console.log(cookies().get("access-token"));
       const galleta =cookies().set("token", usuario._id);
-      // Si se crea la galleta puede ingresar 
+
+      console.log(process.env.REACT_APP_ruta)
       if (galleta) {
-        console.log(process.env.REACT_APP_ruta)
-        return NextResponse.redirect('http://localhost:3000/');
+        return NextResponse.json({ success: true }, { status: 200 });
+      } else {
+        return res.status(500).json({ error: "No se pudo crear la cookie" });
       }
     } else {
       console.log("Usuario no encontrado");
