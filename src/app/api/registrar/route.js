@@ -20,7 +20,7 @@ export async function  POST(req, res) {
       await user.save();
   
       // Devuelve un objeto JSON indicando éxito y la redirección
-      return res.status(200).json({ success: true, redirectTo: '/' });
+      return NextResponse.json({ success: true }, { status: 200 });
       
     } else {
       return NextResponse.error("Cliente ya existe");
