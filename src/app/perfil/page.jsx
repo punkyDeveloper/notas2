@@ -1,7 +1,7 @@
-export default function Perfil() {
+// export default function Perfil() {
                    
-    return (
-  <Nav userId={userId} />
+//     return (
+//   <Nav userId={userId} />
 
-    )
-  }
+//     )
+//   }
