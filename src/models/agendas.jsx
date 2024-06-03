@@ -1,21 +1,19 @@
-import { Schema, model, models } from "mongoose";
+import mongoose from "mongoose";
 
-const agendaSchema = new Schema({
+const NotasSchema = new mongoose.Schema({
   nombre: {
-      type: String,
-
-
+    type: String,
+    required: true,
   },
   nota: {
-      type: String,
-
-  },
-  userId:{
     type: String,
-    //   type: Schema.Types.ObjectId,
-    //   ref: 'user'
+    required: true,
+  },
+  usuarioId: {
+    type: mongoose.Schema.Types.ObjectId, // Si es un ObjectId, usa este tipo
+    required: true,
+    ref: 'Usuario' // Opcional, si tienes una colección 'Usuario'
   }
-    });
+});
 
-const Agenda = models.Agenda || model('Agenda', agendaSchema);
-export default Agenda;
+export default mongoose.models.Notas || mongoose.model('Notas', NotasSchema);

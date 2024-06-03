@@ -1,5 +1,4 @@
 "use client";
-"use client";
 import React, { useState, useEffect } from 'react';
 import Cookies from 'js-cookie';
 import Buttons from '../components/modal/boton';
@@ -18,6 +17,11 @@ export default function Notas() {
           'Authorization': `Bearer ${userId}`
         }
       });
+      console.log(response)
+      console.log(response.ok)
+      // if (condition) {
+        
+      // }
       const data = await response.json();
 
       if (Array.isArray(data) && data.length > 0) {
@@ -44,7 +48,7 @@ export default function Notas() {
     <div>
       <Nav userId={userId} /> 
       <div>
-        <Buttons />
+        <Buttons userId={userId} />
       </div>
       <div className='m-3'>
         <h1>Nota</h1>

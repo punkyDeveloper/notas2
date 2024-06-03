@@ -39,8 +39,9 @@ export default function Home() {
         console.log("Usuario encontrado:", data);
         if (data.success) {
           // Redirigir al usuario a la página de notas
-          window.location.href = 'http://localhost:3000/notas';
-        } else {
+
+          window.location.href = `notas`;
+        } else { 
           setError("No se pudo iniciar sesión, intenta de nuevo.");
         }
       } else {

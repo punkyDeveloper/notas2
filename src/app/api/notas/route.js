@@ -1,12 +1,13 @@
 import Notas from "../../../models/agendas";
 import { connectDB } from "../../../libs/conectio";
 import { NextResponse } from "next/server";
+import { cookies } from "next/headers";
 
 export async function  POST(req, res) {
 
-  const { nombre, nota, userId } = await req.json()
-
-  if (!userId) {
+  const { nombre, nota, usuarioId } = await req.json()
+  console.log(usuarioId)
+  if (!usuarioId) {
     NextResponse.json(
       { message: 'no llego el id' },
       { status: 400 }
@@ -35,22 +36,14 @@ export async function  POST(req, res) {
     const agenda = new Notas({ 
       nombre,
       nota,
-      
-      
-
-
-      
+      usuarioId
+           
     })
     const datos = await agenda.save()
-    console.log(datos)
-    // const buscarid = await Notas.find({userId:datos.userId} )
-    // console.log(buscarid)
-    return (
-      NextResponse.json(
-        { message: 'Nota creada' },
-        { status: 201 }
-      )
-    )
+    if (datos) {
+      return NextResponse.json({ success: true }, { status: 200 });
+    }
+
   } catch (error) {
     console.error("No se guardo la nota tenemos un error", error)
   }
@@ -58,25 +51,19 @@ export async function  POST(req, res) {
 // Ver todas las notas 
 export async function  GET(req, res) {
   await connectDB();
-
+  const cookieStore = cookies();
+  const usuarioId = cookieStore.get('token')?.value;
   try {
-      const notas = await Notas.find();
 
-      return (
-         NextResponse.json(notas,
-          { message: 'Las notas' },
-          { status: 201 }
-        )
-      )
-      // return {
-      //     status: 200,
-      //     body: notas
-      // };
+      const notas = await Notas.find({usuarioId});
+
+      return NextResponse.json(notas, { status: 200 });
+
   } catch (error) {
       console.error("Error al obtener las notas:", error);
       return {
           status: 500,
-          body: { error: "Error al obtener las notas" }
+          body: { error: "Error al obtener las notass" }
       };
   }
 }

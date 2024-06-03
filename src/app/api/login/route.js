@@ -13,16 +13,16 @@ export async function POST(req, res) {
 
     // Buscar usuario en la base de datos
     const usuario = await User.findOne({ email, password });
-
+    console.log(usuario)
     if (usuario) {
       console.log("Usuario encontrado:", usuario);
 
       //
-      const galleta =cookies().set("token", usuario._id.toString());
+      const galleta =cookies().set("token", usuario._id);
 
-      console.log(process.env.REACT_APP_ruta)
+      console.log(galleta)
       if (galleta) {
-        return NextResponse.json({ success: true,usuario }, { status: 200 });
+        return NextResponse.json({ success: true }, { status: 200 });
       } else {
         return res.status(500).json({ error: "No se pudo crear la cookie" });
       }

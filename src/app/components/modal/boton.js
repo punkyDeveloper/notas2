@@ -2,7 +2,7 @@ import { useState } from "react";
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 
-function Example() {
+function Example({ userId }) {
   // boostrap
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
@@ -21,15 +21,24 @@ function Example() {
       setError("Complete los campos de la nota.");
       return;
     }
-    const userId = 123;
+    if (nota.length< 6) {
+      setError("Nota tiene que ser mayor 7 carateres.");
+      return;
+    }
+    const usuarioId = userId;
+    if (!usuarioId) {
+      setError("No es posible guardar la nota");
+      return;
+    }
     try {
-      await fetch("/api/notas",{
+       await fetch("/api/notas",{
         method: "POST",
         headers: {
           "Content-type": "application/json",
         },
-        body: JSON.stringify({ nombre, nota, userId }), // Pasar el ID del usuario al servidor
+        body: JSON.stringify({ nombre, nota, usuarioId }), // Pasar el ID del usuario al servidor
       });
+      
       if (nombre && nota) {
         setExit("Se creo con exito su nota (Recarga la pagina).");
         return;
@@ -59,7 +68,7 @@ function Example() {
 
 
               <Modal.Header closeButton>
-          <Modal.Title>Modal title</Modal.Title>
+          <Modal.Title>Ingresa Tu nota</Modal.Title>
         </Modal.Header>
         <Modal.Body>
                 <label className="text-zinc-800">Titulo:</label>
@@ -86,7 +95,7 @@ function Example() {
                 {error && (
                   <div className="bg-orange-100 border-l-4 border-orange-500 text-orange-700 p-4" role="alert">
                     <p className="font-bold">¡Atención!</p>
-                    <p>{error || exit}</p>
+                    <p>{error}</p>
                   </div>
                 )}
                 {exit && (
