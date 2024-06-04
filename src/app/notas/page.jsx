@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import Cookies from 'js-cookie';
 import Buttons from '../components/modal/boton';
 import Nav from '../components/nav/nav';
+import BotonEli from '../components/botonEliminar/botonEliminar' 
 
 export default function Notas() {
   const [notas, setNotas] = useState([]);
@@ -69,7 +70,7 @@ export default function Notas() {
                     </div>
                     <p className="card-text">{nota.nota}</p>
                     <button className="btn btn-primary m-2">Editar</button>
-                    <button className="btn btn-danger m-2">Eliminar</button>
+                    <BotonEli/>
                   </div>
                 </div>
               </div>
