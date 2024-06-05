@@ -71,15 +71,24 @@ export async function  GET(req, res) {
 export async function DELETE(req, res) {
   try {
     await connectDB();
-    const { id } = await req.body;
+    const body = await req.json(); 
+    const { id } = body;
     console.log(id);
 
     if (!id) {
-    return NextResponse.json("No se encontro id");
+
+      console.log("No se encontro id")
+      return NextResponse.json("No se encontro id");
       
     }
-    return NextResponse.json("se elimino");
+    const nn = await Notas.deleteOne({ _id:id });
+    if (nn.deletedCount === 0) {
+      console.log("No se encontró ningún documento con ese id");
+      return NextResponse.json({ message: "No se encontró ningún documento con ese id" }, { status: 404 });
+    }
 
+    console.log("Se eliminó");
+    return NextResponse.json({ message: "Se eliminó: " + id }, { status: 200 });
 
   } catch (error) {
     console.error('Error deleting note:', error);

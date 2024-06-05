@@ -18,9 +18,22 @@ function Example({ id, name }) {
       return;
     }
     try {
-      await fetch(`/api/notas?id=${id}`, { // Enviar el id como parte de la URL
+      const response = await fetch(`/api/notas`, { // Enviar el id como parte de la URL
         method: "DELETE",
+        headers: {
+          "Content-type": "application/json",
+        },
+        body: JSON.stringify({id}),
       });
+
+      if (response.ok) {
+        const eliminarID = await response.json()
+        console.log("Respuesta servidor", eliminarID)
+      } else {
+        setError('Error al encontrar la nota.');
+        
+      }
+
     } catch (error) {
       setError("Error al eliminar la nota");
       console.error('Error al eliminar la nota: ', error);
@@ -36,7 +49,7 @@ function Example({ id, name }) {
       <Modal show={show} onHide={handleClose}>
         <form onSubmit={eliminarNota}>
           <Modal.Header closeButton>
-            <Modal.Title>Eliminar Nota "{name}"</Modal.Title>
+            <Modal.Title>Esta seguro que quieres eliminar la nota: {name}</Modal.Title>
           </Modal.Header>
           <Modal.Body>
             <input
@@ -58,7 +71,7 @@ function Example({ id, name }) {
             <Button variant="secondary" onClick={handleClose}>
               Salir
             </Button>
-            <Button type="submit" variant="primary" type="submit">
+            <Button type="submit" variant="primary">
               Eliminar
             </Button>
           </Modal.Footer>
