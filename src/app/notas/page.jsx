@@ -70,7 +70,7 @@ export default function Notas() {
                     </div>
                     <p className="card-text">{nota.nota}</p>
                     <button className="btn btn-primary m-2">Editar</button>
-                    <BotonEli/>
+                    <BotonEli id={nota._id} name={nota.nombre}/>
                   </div>
                 </div>
               </div>

@@ -69,32 +69,20 @@ export async function  GET(req, res) {
 }
 // Eliminar notas 
 export async function DELETE(req, res) {
-  await connectDB();
   try {
-    const id = await req.query && req.query.userId
-    console.log(id)
-    return (
-      NextResponse.json(id)
-    )
-    // const notas = await Notas.find({userId});
-    //   console.log("mi id1 ")
-    //   console.log("mi id "+notas)
+    await connectDB();
+    const { id } = await req.body;
+    console.log(id);
 
-      // Verificar si el ID está presente
-      // if (!id) {
-      //     return NextResponse.json({ error: 'ID de la nota no proporcionado' }, { status: 400 });
-      // }
+    if (!id) {
+    return NextResponse.json("No se encontro id");
+      
+    }
+    return NextResponse.json("se elimino");
 
-      // const notaEliminada = await Notas.findByIdAndDelete(id); // Usar directamente el ID
-
-      // if (!notaEliminada) {
-      //     return NextResponse.json({ error: 'Nota no encontrada' }, { status: 404 });
-      // }
-
-      // return NextResponse.json({ message: 'Nota Eliminada', notaEliminada }, { status: 200 });
 
   } catch (error) {
-      console.error("Error al eliminar la nota", error);
-      return NextResponse.json({ error: "Error al eliminar la nota" }, { status: 500 });
+    console.error('Error deleting note:', error);
+
   }
 }

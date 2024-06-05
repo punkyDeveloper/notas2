@@ -36,7 +36,7 @@ function Example({ userId }) {
         headers: {
           "Content-type": "application/json",
         },
-        body: JSON.stringify({ nombre, nota, usuarioId }), // Pasar el ID del usuario al servidor
+        body: JSON.stringify({ nombre, nota, usuarioId }),
       });
       
       if (nombre && nota) {
