@@ -95,3 +95,15 @@ export async function DELETE(req, res) {
 
   }
 }
+export async function PUT(req,res){
+
+  try {
+    await connectDB();
+    const body = await req.json()
+    const { id } = body
+
+    console.log(id)
+  } catch (error) {
+    console.log("Error en el servidor al actualizar la nota",error)
+  }
+}

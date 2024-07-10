@@ -40,7 +40,8 @@ function Example({ userId }) {
       });
       
       if (nombre && nota) {
-        setExit("Se creo con exito su nota (Recarga la pagina).");
+        setExit("Se creo con exito su nota.");
+        window.location.reload();
         return;
       }
       // Limpiar los campos después de enviar la nota
@@ -82,7 +83,8 @@ function Example({ userId }) {
                 />
   
                 <label className="text-zinc-800">Nota:</label>
-                <input
+                <textarea
+                sentences
                   onChange={(e) => setNota(e.target.value)}
                   value={nota}
                   type="text"

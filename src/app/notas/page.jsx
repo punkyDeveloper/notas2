@@ -4,6 +4,7 @@ import Cookies from 'js-cookie';
 import Buttons from '../components/modal/boton';
 import Nav from '../components/nav/nav';
 import BotonEli from '../components/botonEliminar/botonEliminar' 
+import BotonActu from '../components/botnActualizarNota/botnActualizarNota' 
 
 export default function Notas() {
   const [notas, setNotas] = useState([]);
@@ -69,7 +70,7 @@ export default function Notas() {
                       {nota.nombre}
                     </div>
                     <p className="card-text">{nota.nota}</p>
-                    <button className="btn btn-primary m-2">Editar</button>
+                    <BotonActu className="btn btn-primary m-2" notas={nota}/>
                     <BotonEli id={nota._id} name={nota.nombre}/>
                   </div>
                 </div>

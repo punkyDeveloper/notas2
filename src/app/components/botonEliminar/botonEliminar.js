@@ -4,11 +4,13 @@ import Modal from 'react-bootstrap/Modal';
 
 function Example({ id, name }) {
   const [show, setShow] = useState(false);
+  const [error, setError] = useState(null);
+  const [exit, setExit] = useState(null);
+
+
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
-
-  const [error, setError] = useState(null);
 
   const eliminarNota = async (e) => {
     e.preventDefault();
@@ -18,22 +20,21 @@ function Example({ id, name }) {
       return;
     }
     try {
-      const response = await fetch(`/api/notas`, { // Enviar el id como parte de la URL
+      const response = await fetch(`/api/notas`, {
         method: "DELETE",
         headers: {
           "Content-type": "application/json",
         },
-        body: JSON.stringify({id}),
+        body: JSON.stringify({ id }),
       });
 
       if (response.ok) {
-        const eliminarID = await response.json()
-        console.log("Respuesta servidor", eliminarID)
+        await response.json();
+        setExit("Se elimino con exito su nota.");
+        window.location.reload();
       } else {
         setError('Error al encontrar la nota.');
-        
       }
-
     } catch (error) {
       setError("Error al eliminar la nota");
       console.error('Error al eliminar la nota: ', error);
@@ -51,7 +52,6 @@ function Example({ id, name }) {
           <Modal.Header closeButton>
             <Modal.Title>Esta seguro que quieres eliminar la nota: {name}</Modal.Title>
           </Modal.Header>
-          <Modal.Body>
             <input
               value={id}
               type="hidden"
@@ -66,7 +66,12 @@ function Example({ id, name }) {
                 <p>{error}</p>
               </div>
             )}
-          </Modal.Body>
+          {exit && (
+                  <div className="bg-blue-100 border-l-4 border-blue-500 text-blue-700 p-4" role="alert">
+                    <p className="font-bold"></p>
+                    <p>{exit}</p>
+                  </div>
+                )}
           <Modal.Footer>
             <Button variant="secondary" onClick={handleClose}>
               Salir
