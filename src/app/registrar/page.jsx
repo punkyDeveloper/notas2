@@ -103,8 +103,12 @@ function Signup() {
         <button type="sudmit" className="bg-blue-500 text-white px-4 py-2 block w-full mt-4">
           Registrar
         </button>
-        <a href="/" className="font-semibold leading-6 text-blue hover:text-indigo-500">
+        <br/>
+        <a href="/" className="bg-green-50 hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded">
+            
+           
             Login
+
           </a>
         <br />
 
