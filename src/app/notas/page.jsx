@@ -4,7 +4,7 @@ import Cookies from 'js-cookie';
 import Buttons from '../components/modal/boton';
 import Nav from '../components/nav/nav';
 import BotonEli from '../components/botonEliminar/botonEliminar' 
-import BotonActu from '../components/botnActualizarNota/botnActualizarNota' 
+import BotonAbrit from '../components/verNota/verNota' 
 
 export default function Notas() {
   const [notas, setNotas] = useState([]);
@@ -19,8 +19,8 @@ export default function Notas() {
           'Authorization': `Bearer ${userId}`
         }
       });
-      console.log(response)
-      console.log(response.ok)
+      // console.log(response)
+      // console.log(response.ok)
       // if (condition) {
         
       // }
@@ -69,8 +69,8 @@ export default function Notas() {
                     <div className="card-header">
                       {nota.nombre}
                     </div>
-                    <p className="card-text">{nota.nota}</p>
-                    <BotonActu className="btn btn-primary m-2" notas={nota}/>
+                    <p className="card-text">{nota.notas}</p>
+                    <BotonAbrit className="btn btn-primary m-2" notas={nota}/>
                     <BotonEli id={nota._id} name={nota.nombre}/>
                   </div>
                 </div>

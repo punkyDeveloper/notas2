@@ -2,6 +2,7 @@ import Notas from "../../../models/agendas";
 import { connectDB } from "../../../libs/conectio";
 import { NextResponse } from "next/server";
 import { cookies } from "next/headers";
+import { ObjectId } from 'mongodb';
 
 export async function  POST(req, res) {
 
@@ -95,15 +96,48 @@ export async function DELETE(req, res) {
 
   }
 }
-export async function PUT(req,res){
-
+export async function PATCH(req, res) {
   try {
     await connectDB();
-    const body = await req.json()
-    const { id } = body
+    console.log('Conexión a la base de datos establecida');
 
-    console.log(id)
+    const { not, nombres, usuarioId } = await req.json();
+    console.log('Datos recibidos:', { not, nombres, usuarioId });
+
+    if (!usuarioId || !not || !nombres) {
+      const missingFields = [];
+      if (!usuarioId) missingFields.push('usuarioId');
+      if (!not) missingFields.push('not');
+      if (!nombres) missingFields.push('nombres');
+
+      console.log('Campos faltantes:', missingFields);
+      return NextResponse.json({ message: `No se puede actualizar la nota. Campos faltantes: ${missingFields.join(', ')}` }, { status: 400 });
+    }
+
+    const noteId = new ObjectId(usuarioId);
+    
+    // Buscar el documento por ID
+    const existingNote = await Notas.findOne({ _id: noteId });
+    if (!existingNote) {
+      console.log('No se encontró ninguna nota para actualizar.');
+      return NextResponse.json({ message: 'No se encontró ninguna nota para actualizar.' }, { status: 404 });
+    }
+
+    // Actualizar los datos
+    const result = await Notas.updateOne(
+      { _id: noteId }, // Criterio de búsqueda
+      { $set: { nota: not, nombre: nombres } } // Datos a actualizar
+    );
+    
+    if (!result.modifiedCount) {
+      console.log('No se encontró ninguna nota para actualizar.');
+      return NextResponse.json({ message: 'No se encontró ninguna nota para actualizar.' }, { status: 404 });
+    }
+
+    console.log('Resultado de la actualización:', result);
+    return NextResponse.json({ message: 'Nota actualizada con éxito.' }, { status: 200 });
   } catch (error) {
-    console.log("Error en el servidor al actualizar la nota",error)
+    console.error('Error en el servidor al actualizar la nota:', error);
+    return NextResponse.json({ message: 'Error en el servidor al actualizar la nota.' }, { status: 500 });
   }
 }
