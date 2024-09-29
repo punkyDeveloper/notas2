@@ -6,6 +6,7 @@ function Signup() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState(null);
+  const [success, setSuccess] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -22,7 +23,7 @@ function Signup() {
 
     // Enviar los datos
     try {
-      const url = "/api/registrar"
+      const url = "/api/registrar";
       const response = await fetch(url, { 
         method: "POST",
         headers: {
@@ -39,7 +40,10 @@ function Signup() {
       if (response.ok) {
         const data = await response.json();
         console.log("Respuesta del servidor:", data);
-        window.location.href = '/';
+        setSuccess(true);
+        setTimeout(() => {
+          window.location.href = '/';
+        }, 3000); // Redirige después de 3 segundos
       } else {
         setError('El correo ya se encuentra en uso.');
       }
@@ -96,12 +100,21 @@ function Signup() {
         <button type="submit" className="bg-blue-500 text-white px-4 py-2 block w-full mt-4 rounded-md">
           Registrar
         </button>
-        <br />
-        <a href="/" className="block text-center bg-green-50 hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded">
-          Login
-        </a>
-        <br />
       </form>
+      {success && (
+        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+          <div className="bg-white p-8 rounded-lg shadow-lg">
+            <h2 className="text-2xl font-bold mb-4">¡Registro exitoso!</h2>
+            <p className="mb-4">Redirigiendo a la plataforma...</p>
+            <button
+              onClick={() => (window.location.href = '/')}
+              className="bg-blue-500 text-white px-4 py-2 rounded-md"
+            >
+              Ir ahora
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
